@@ -1,4 +1,6 @@
-def Hello():
-    print("Hello world")
+user_number = input("Give me number:")
 
-Hello()
+print(user_number)
+
+
+
