@@ -1,3 +1,7 @@
+import sqlite3 as db
+
+con = db.connect('Searched_numbers.db')
+
 print("With this program you can calculate the prime factors of any given number")
 
 
@@ -30,7 +34,7 @@ def cut_duplicates(list):
 # Store refined prime factor list with no double values in a variable
 prime_list_output = cut_duplicates(prime_list)
 
-
+# Create file here and write prime factores list in it
 
 print(prime_list_output)
 
