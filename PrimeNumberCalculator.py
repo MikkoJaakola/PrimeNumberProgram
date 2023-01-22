@@ -63,7 +63,9 @@ if found_number == []:
     # User output
     print("--------------------")
     print("Prime factors:")
-    print(prime_list_output)
+    str_list = str(prime_list_output)
+    formatted_list = str_list[1:-1]
+    print(formatted_list)
 else:
     # New query for user input for formatting the output
     c.execute("SELECT * FROM factors WHERE number=?", [user_number])
@@ -72,8 +74,9 @@ else:
     # User output
     print("--------------------")
     print("Prime factors:")
-    print(new_number)
-    print("This number form database")
+    formatted_number = new_number[1:-1]
+    print(formatted_number)
+    print("This number was found from search history")
 
 # End time of fetching prime factors
 end = time.time()
