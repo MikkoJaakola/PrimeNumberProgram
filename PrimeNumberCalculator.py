@@ -12,8 +12,6 @@ c.execute("""CREATE TABLE IF NOT EXISTS factors (
             factors text
  )""")
 
-#table = c.execute("""SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE factors""")
-#print(table)
 
 print("With this program you can calculate the prime factors of any given number")
 
@@ -35,9 +33,6 @@ def calc_prime_fact(x):
             i += 1
     return prime_factors
     
-# Store list of found prime factors in a variable
-prime_list = calc_prime_fact(user_number)
-
 # Remove duplicate entries from found prime factors list
 def cut_duplicates(list):
     refined_list = []
@@ -46,12 +41,19 @@ def cut_duplicates(list):
             refined_list.append(i)
     return refined_list
 
+# Store list of found prime factors in a variable
+prime_list = calc_prime_fact(user_number)
+
 # Store refined prime factor list with no double values in a variable
 prime_list_output = cut_duplicates(prime_list)
+str_prime_list = str(prime_list_output)
 
 # write prime factores to database file
+c.execute("INSERT INTO factors VALUES (:number, :factors)", {'number': user_number, 'factors': str_prime_list})
+con.commit()
+
 
 print(prime_list_output)
-
+print("-------------------")
 
 
