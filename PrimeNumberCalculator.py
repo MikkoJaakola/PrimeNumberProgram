@@ -1,12 +1,27 @@
 import sqlite3 as db
 
+# connect to database file to store already searched numbers, create the file if it doesn't exist
 con = db.connect('Searched_numbers.db')
+
+# cursor for executing SQL queries
+c = con.cursor()
+
+# Create table factors if it doesn't exist already
+c.execute("""CREATE TABLE IF NOT EXISTS factors (
+            number integer,
+            factors text
+ )""")
+
+#table = c.execute("""SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE factors""")
+#print(table)
 
 print("With this program you can calculate the prime factors of any given number")
 
 
 # Store user input in a variable
 user_number = int(input("Give me number:"))
+
+# Functionality here to check database for existing numbers
 
 # calculate prime factors of user given number
 def calc_prime_fact(x):
@@ -34,7 +49,7 @@ def cut_duplicates(list):
 # Store refined prime factor list with no double values in a variable
 prime_list_output = cut_duplicates(prime_list)
 
-# Create file here and write prime factores list in it
+# write prime factores to database file
 
 print(prime_list_output)
 
