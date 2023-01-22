@@ -55,11 +55,15 @@ if found_number == []:
     c.execute("INSERT INTO factors VALUES (:number, :factors)", {'number': user_number, 'factors': str_prime_list})
     con.commit()
 
-
+    print("--------------------")
+    print("Prime factors:")
     print(prime_list_output)
-    print("-------------------")
 else:
-    print(found_number)
+    c.execute("SELECT * FROM factors WHERE number=?", [user_number])
+    new_number = c.fetchone()[1]
+    print("--------------------")
+    print("Prime factors:")
+    print(new_number)
     print("This number form database")
 
 
