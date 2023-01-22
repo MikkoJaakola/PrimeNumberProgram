@@ -19,8 +19,6 @@ print("With this program you can calculate the prime factors of any given number
 # Store user input in a variable
 user_number = int(input("Give me number:"))
 
-# Functionality here to check database for existing numbers
-
 # calculate prime factors of user given number
 def calc_prime_fact(x):
     prime_factors = []
@@ -41,19 +39,28 @@ def cut_duplicates(list):
             refined_list.append(i)
     return refined_list
 
-# Store list of found prime factors in a variable
-prime_list = calc_prime_fact(user_number)
+# Functionality here to check database for existing numbers   
+c.execute("SELECT * FROM factors WHERE number=?", [user_number])
+found_number = c.fetchall()
 
-# Store refined prime factor list with no double values in a variable
-prime_list_output = cut_duplicates(prime_list)
-str_prime_list = str(prime_list_output)
+if found_number == []:
+    # Store list of found prime factors in a variable
+    prime_list = calc_prime_fact(user_number)
 
-# write prime factores to database file
-c.execute("INSERT INTO factors VALUES (:number, :factors)", {'number': user_number, 'factors': str_prime_list})
-con.commit()
+    # Store refined prime factor list with no double values in a variable
+    prime_list_output = cut_duplicates(prime_list)
+    str_prime_list = str(prime_list_output)
+
+    # write prime factores to database file
+    c.execute("INSERT INTO factors VALUES (:number, :factors)", {'number': user_number, 'factors': str_prime_list})
+    con.commit()
 
 
-print(prime_list_output)
-print("-------------------")
+    print(prime_list_output)
+    print("-------------------")
+else:
+    print(found_number)
+    print("This number form database")
+
 
 
